@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Origami Fold Simulator</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Origami Fold Simulator</h1>
+    <p class="subtitle">Drag the tabs to fold the paper. Real 3D hinges, not a trick.</p>
+  </header>
+
+  <div id="stage">
+    <div class="paper" id="paper">
+
+      <div class="group group-top" id="groupTop">
+        <div class="quad quad-tl" id="quadTL">
+          <div class="face face-front"></div>
+          <div class="face face-back"></div>
+        </div>
+        <div class="quad quad-tr" id="quadTR">
+          <div class="face face-front"></div>
+          <div class="face face-back"></div>
+        </div>
+      </div>
+
+      <div class="group group-bottom" id="groupBottom">
+        <div class="quad quad-bl" id="quadBL">
+          <div class="face face-front"></div>
+          <div class="face face-back"></div>
+        </div>
+        <div class="quad quad-br" id="quadBR">
+          <div class="face face-front"></div>
+          <div class="face face-back"></div>
+        </div>
+      </div>
+
+      <div class="crease crease-v"></div>
+      <div class="crease crease-h"></div>
+
+      <div class="handle handle-v" id="handleV" title="Drag to fold left/right">⇤</div>
+      <div class="handle handle-h" id="handleH" title="Drag to fold down">⇓</div>
+    </div>
+  </div>
+
+  <div id="ui">
+    <div class="sliders">
+      <label>
+        Vertical fold
+        <input type="range" id="foldVSlider" min="0" max="180" value="0">
+      </label>
+      <label>
+        Horizontal fold
+        <input type="range" id="foldHSlider" min="0" max="180" value="0">
+      </label>
+    </div>
+
+    <div class="buttons">
+      <button id="autoFoldBtn">Auto-fold</button>
+      <button id="unfoldBtn">Unfold all</button>
+      <button id="creaseToggleBtn">Hide crease guides</button>
+    </div>
+
+    <div class="palette">
+      <button class="palette-btn active" data-back="#c0392b">
+        <span class="swatch" style="background:#c0392b"></span>
+        <span class="palette-label">Crimson</span>
+      </button>
+      <button class="palette-btn" data-back="#1e6fd9">
+        <span class="swatch" style="background:#1e6fd9"></span>
+        <span class="palette-label">Ocean</span>
+      </button>
+      <button class="palette-btn" data-back="#1a9e5c">
+        <span class="swatch" style="background:#1a9e5c"></span>
+        <span class="palette-label">Jade</span>
+      </button>
+      <button class="palette-btn" data-back="#2c2c34">
+        <span class="swatch" style="background:#2c2c34"></span>
+        <span class="palette-label">Ink</span>
+      </button>
+    </div>
+  </div>
+
+  <footer>
+    <p>Nested CSS 3D transforms &middot; drag, don't just click</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

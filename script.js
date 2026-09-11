@@ -201,8 +201,8 @@ let orbitStartValX = 0;
 let orbitStartValY = 0;
 
 function setOrbit(x, y) {
-  orbitX = Math.max(-70, Math.min(70, x));
-  orbitY = Math.max(-90, Math.min(90, y));
+  orbitX = Math.max(-50, Math.min(50, x));
+  orbitY = Math.max(-55, Math.min(55, y));
   scene.style.transform = `rotateX(${orbitX}deg) rotateY(${orbitY}deg)`;
 }
 

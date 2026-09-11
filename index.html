@@ -10,40 +10,61 @@
 
   <header>
     <h1>Origami Fold Simulator</h1>
-    <p class="subtitle">Drag the tabs to fold the paper. Real 3D hinges, not a trick.</p>
+    <p class="subtitle">Drag the tabs to fold. Drag the orbit knob to look around.</p>
   </header>
 
+  <div id="statusLine">Flat sheet</div>
+
   <div id="stage">
-    <div class="paper" id="paper">
+    <div class="scene" id="scene">
 
-      <div class="group group-top" id="groupTop">
-        <div class="quad quad-tl" id="quadTL">
-          <div class="face face-front"></div>
-          <div class="face face-back"></div>
+      <div class="paper-shadow" id="paperShadow"></div>
+
+      <div class="paper" id="paper">
+
+        <div class="group group-top" id="groupTop">
+          <div class="quad quad-tl" id="quadTL">
+            <div class="face face-front"></div>
+            <div class="face face-back"></div>
+          </div>
+          <div class="quad quad-tr" id="quadTR">
+            <div class="face face-front"></div>
+            <div class="face face-back"></div>
+          </div>
         </div>
-        <div class="quad quad-tr" id="quadTR">
-          <div class="face face-front"></div>
-          <div class="face face-back"></div>
+
+        <div class="group group-bottom" id="groupBottom">
+          <div class="quad quad-bl" id="quadBL">
+            <div class="face face-front"></div>
+            <div class="face face-back"></div>
+
+            <div class="corner-flap" id="cornerFlap">
+              <div class="face face-front corner-face"></div>
+              <div class="face face-back corner-face"></div>
+            </div>
+          </div>
+          <div class="quad quad-br" id="quadBR">
+            <div class="face face-front"></div>
+            <div class="face face-back"></div>
+          </div>
         </div>
+
+        <div class="crease crease-v"></div>
+        <div class="crease crease-h"></div>
+        <div class="crease crease-d"></div>
+
+        <div class="handle handle-v" id="handleV" title="Drag to fold left/right">⇤</div>
+        <div class="handle handle-h" id="handleH" title="Drag to fold down">⇓</div>
       </div>
-
-      <div class="group group-bottom" id="groupBottom">
-        <div class="quad quad-bl" id="quadBL">
-          <div class="face face-front"></div>
-          <div class="face face-back"></div>
-        </div>
-        <div class="quad quad-br" id="quadBR">
-          <div class="face face-front"></div>
-          <div class="face face-back"></div>
-        </div>
-      </div>
-
-      <div class="crease crease-v"></div>
-      <div class="crease crease-h"></div>
-
-      <div class="handle handle-v" id="handleV" title="Drag to fold left/right">⇤</div>
-      <div class="handle handle-h" id="handleH" title="Drag to fold down">⇓</div>
     </div>
+  </div>
+
+  <div class="orbit-row">
+    <div class="orbit-knob" id="orbitKnob" title="Drag to rotate view">
+      <div class="orbit-dot"></div>
+    </div>
+    <span class="orbit-label">Orbit view</span>
+    <button id="resetViewBtn">Reset view</button>
   </div>
 
   <div id="ui">
@@ -56,12 +77,17 @@
         Horizontal fold
         <input type="range" id="foldHSlider" min="0" max="180" value="0">
       </label>
+      <label>
+        Corner fold
+        <input type="range" id="foldCSlider" min="0" max="180" value="0">
+      </label>
     </div>
 
     <div class="buttons">
-      <button id="autoFoldBtn">Auto-fold</button>
+      <button id="autoFoldBtn">Guided auto-fold</button>
       <button id="unfoldBtn">Unfold all</button>
       <button id="creaseToggleBtn">Hide crease guides</button>
+      <button id="soundBtn">Sound: off</button>
     </div>
 
     <div class="palette">
@@ -85,7 +111,7 @@
   </div>
 
   <footer>
-    <p>Nested CSS 3D transforms &middot; drag, don't just click</p>
+    <p>Nested CSS 3D transforms &middot; arbitrary-axis corner fold &middot; drag-to-orbit camera</p>
   </footer>
 
   <script src="script.js"></script>

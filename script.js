@@ -5,6 +5,9 @@ const cornerFlap = document.getElementById('cornerFlap');
 const scene = document.getElementById('scene');
 const statusLine = document.getElementById('statusLine');
 const paperShadow = document.getElementById('paperShadow');
+const creaseV = document.querySelector('.crease-v');
+const creaseH = document.querySelector('.crease-h');
+const creaseD = document.querySelector('.crease-d');
 
 const handleV = document.getElementById('handleV');
 const handleH = document.getElementById('handleH');
@@ -32,6 +35,15 @@ function applyTransforms() {
   // Diagonal fold uses an arbitrary rotation axis (1, -1, 0) along the
   // anti-diagonal of the quadrant, instead of the plain X/Y axes above.
   cornerFlap.style.transform = `translateZ(4px) rotate3d(1, -1, 0, ${foldC}deg)`;
+
+  // Crease guides only make sense on a flat sheet — a crease line stays
+  // pinned to the paper's original flat layout, so once that fold has
+  // progressed it visually stretches away from the actual folded shape.
+  // Fading it out as its own fold advances avoids that stray-line look.
+  creaseV.style.opacity = creasesVisible ? Math.max(0, 1 - foldV / 60) : 0;
+  creaseH.style.opacity = creasesVisible ? Math.max(0, 1 - foldH / 60) : 0;
+  creaseD.style.opacity = creasesVisible ? Math.max(0, 1 - foldC / 60) : 0;
+
   updateShadow();
   updateStatus();
 }
@@ -327,8 +339,8 @@ const creaseToggleBtn = document.getElementById('creaseToggleBtn');
 let creasesVisible = true;
 creaseToggleBtn.addEventListener('click', () => {
   creasesVisible = !creasesVisible;
-  document.querySelectorAll('.crease').forEach(c => c.classList.toggle('hidden-crease', !creasesVisible));
   creaseToggleBtn.textContent = creasesVisible ? 'Hide crease guides' : 'Show crease guides';
+  applyTransforms();
 });
 
 // ---- Paper color palette ----

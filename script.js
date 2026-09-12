@@ -21,13 +21,17 @@ let orbitX = -18; // scene tilt (starts slightly tilted for a nicer default view
 let orbitY = 20;
 
 function applyTransforms() {
-  const vTransform = `rotateY(${-foldV}deg)`;
+  // Each folding flap gets a small constant translateZ "lift" so it never
+  // sits perfectly coplanar with the panel it's folding onto — without
+  // this, browsers can render overlapping flat panels with incorrect
+  // stacking (z-fighting) partway through the rotation.
+  const vTransform = `translateZ(4px) rotateY(${-foldV}deg)`;
   quadTR.style.transform = vTransform;
   quadBR.style.transform = vTransform;
-  groupTop.style.transform = `rotateX(${-foldH}deg)`;
+  groupTop.style.transform = `translateZ(9px) rotateX(${-foldH}deg)`;
   // Diagonal fold uses an arbitrary rotation axis (1, -1, 0) along the
   // anti-diagonal of the quadrant, instead of the plain X/Y axes above.
-  cornerFlap.style.transform = `rotate3d(1, -1, 0, ${foldC}deg)`;
+  cornerFlap.style.transform = `translateZ(4px) rotate3d(1, -1, 0, ${foldC}deg)`;
   updateShadow();
   updateStatus();
 }
@@ -201,8 +205,8 @@ let orbitStartValX = 0;
 let orbitStartValY = 0;
 
 function setOrbit(x, y) {
-  orbitX = Math.max(-50, Math.min(50, x));
-  orbitY = Math.max(-55, Math.min(55, y));
+  orbitX = Math.max(-80, Math.min(80, x));
+  orbitY = Math.max(-85, Math.min(85, y));
   scene.style.transform = `rotateX(${orbitX}deg) rotateY(${orbitY}deg)`;
 }
 
